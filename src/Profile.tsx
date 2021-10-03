@@ -1,6 +1,5 @@
 import React, {useEffect} from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 
 const Profile = () => {
@@ -16,17 +15,19 @@ const Profile = () => {
     return <div>Loading ...</div>;
   }
 
-  if (isAuthenticated) {
-    return <div>
+  if (!isAuthenticated) {
+    return <div></div>;
+  }
+
+  return (
+    <div>
       <img src={user?.picture} alt={user?.name} />
       <h2>{user?.name}</h2>
       <p>{user?.email}</p>
 
       <LogoutButton />
-    </div>;
-  } else {
-    return <LoginButton />;
-  }
+    </div>
+  )
 };
 
 export default Profile;

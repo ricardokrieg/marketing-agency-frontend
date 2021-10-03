@@ -1,29 +1,75 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import Profile from "./Profile";
+import {useAuth0} from "@auth0/auth0-react";
+import LogoutButton from "./LogoutButton";
+import MassDM from "./Components/MassDM";
+import { Route, Link } from "react-router-dom";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
 
-      <Profile />
+  if (isLoading) {
+    return <div>Loading ...</div>;
+  }
+
+  if (!isAuthenticated) {
+    let _ = loginWithRedirect();
+    return <div></div>;
+  }
+
+  return (
+    <div id='main'>
+      <div id='sidebar'>
+        <img src='https://image.flaticon.com/icons/png/512/87/87390.png' id='logo' />
+        <ul>
+          <li className='current'>
+            <a href='/'>
+              <span className='material-icons-outlined space_dashboard'></span>
+              Overview
+            </a>
+          </li>
+
+          <li className=''>
+            <Link to="/mass-dm">
+              <span className='material-icons-outlined mail'></span>
+              Mass DM
+            </Link>
+          </li>
+
+          <li className=''>
+            <a>
+              <span className='material-icons-outlined credit_card'></span>
+              Payments
+            </a>
+          </li>
+
+          <li className=''>
+            <a>
+              <span className='material-icons-outlined question_answer'></span>
+              Support
+            </a>
+          </li>
+
+          <li className=''>
+            <LogoutButton />
+          </li>
+        </ul>
+      </div>
+
+      <div id='content'>
+        <div id='header'>
+          <div id='user'>
+            {user?.name}
+            <br/>
+            {user?.email}
+          </div>
+        </div>
+
+        <div id='main-content'>
+          <Route path='/mass-dm' component={MassDM} />
+        </div>
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
