@@ -23,28 +23,28 @@ function App() {
         <ul>
           <li className='current'>
             <a href='/'>
-              <span className='material-icons-outlined space_dashboard'></span>
+              <span className='material-icons-outlined'>space_dashboard</span>
               Overview
             </a>
           </li>
 
           <li className=''>
             <Link to="/mass-dm">
-              <span className='material-icons-outlined mail'></span>
+              <span className='material-icons-outlined'>mail</span>
               Mass DM
             </Link>
           </li>
 
           <li className=''>
             <a>
-              <span className='material-icons-outlined credit_card'></span>
+              <span className='material-icons-outlined'>credit_card</span>
               Payments
             </a>
           </li>
 
           <li className=''>
             <a>
-              <span className='material-icons-outlined question_answer'></span>
+              <span className='material-icons-outlined'>question_answer</span>
               Support
             </a>
           </li>
