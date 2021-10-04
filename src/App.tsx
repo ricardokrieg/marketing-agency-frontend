@@ -1,8 +1,8 @@
 import React from 'react';
 import {useAuth0} from "@auth0/auth0-react";
-import LogoutButton from "./LogoutButton";
-import MassDM from "./Components/MassDM";
-import { Route, Link } from "react-router-dom";
+import MassDM from "./Components/MassDM/MassDM";
+import {Route} from "react-router-dom";
+import Sidebar from "./Components/Sidebar/Sidebar";
 
 function App() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
@@ -18,42 +18,7 @@ function App() {
 
   return (
     <div id='main'>
-      <div id='sidebar'>
-        <img src='https://image.flaticon.com/icons/png/512/87/87390.png' id='logo' />
-        <ul>
-          <li className='current'>
-            <a href='/'>
-              <span className='material-icons-outlined'>space_dashboard</span>
-              Overview
-            </a>
-          </li>
-
-          <li className=''>
-            <Link to="/mass-dm">
-              <span className='material-icons-outlined'>mail</span>
-              Mass DM
-            </Link>
-          </li>
-
-          <li className=''>
-            <a>
-              <span className='material-icons-outlined'>credit_card</span>
-              Payments
-            </a>
-          </li>
-
-          <li className=''>
-            <a>
-              <span className='material-icons-outlined'>question_answer</span>
-              Support
-            </a>
-          </li>
-
-          <li className=''>
-            <LogoutButton />
-          </li>
-        </ul>
-      </div>
+      <Sidebar />
 
       <div id='content'>
         <div id='header'>
