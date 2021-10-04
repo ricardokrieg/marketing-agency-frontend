@@ -5,6 +5,7 @@ const LogoutButton = () => {
   const { logout } = useAuth0();
 
   return (
+    // eslint-disable-next-line
     <a onClick={() => logout({ returnTo: window.location.origin })}>
       <span className='material-icons-outlined'>logout</span>
       Log Out

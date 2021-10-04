@@ -1,5 +1,6 @@
 import React from 'react';
 import {useAuth0} from "@auth0/auth0-react";
+import Dashboard from "../Dashboard/Dashboard";
 import MassDM from "../MassDM/MassDM";
 import {Route} from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
@@ -14,7 +15,7 @@ function App() {
   }
 
   if (!isAuthenticated) {
-    let _ = loginWithRedirect();
+    loginWithRedirect().then(() => {})
     return <div></div>;
   }
 
@@ -26,6 +27,7 @@ function App() {
         <Header user={user} />
 
         <div id='main-content'>
+          <Route exact path='/' component={Dashboard} />
           <Route path='/mass-dm' component={MassDM} />
         </div>
       </div>

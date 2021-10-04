@@ -27,7 +27,7 @@
     padding: 16px;
 }
 
-#sidebar ul li.current {
+#sidebar ul li a.current {
     font-weight: bold;
 }
 
@@ -39,7 +39,7 @@
     margin-right: 10px;
 }
 
-#sidebar ul li.current a span {
+#sidebar ul li a.current span {
     color: #FD870A;
 }
 
