@@ -1,8 +1,10 @@
 import React from 'react';
 import {useAuth0} from "@auth0/auth0-react";
-import MassDM from "./Components/MassDM/MassDM";
+import MassDM from "../MassDM/MassDM";
 import {Route} from "react-router-dom";
-import Sidebar from "./Components/Sidebar/Sidebar";
+import Sidebar from "../Sidebar/Sidebar";
+import Header from "../Header/Header";
+import './style.css';
 
 function App() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
@@ -21,13 +23,7 @@ function App() {
       <Sidebar />
 
       <div id='content'>
-        <div id='header'>
-          <div id='user'>
-            {user?.name}
-            <br/>
-            {user?.email}
-          </div>
-        </div>
+        <Header user={user} />
 
         <div id='main-content'>
           <Route path='/mass-dm' component={MassDM} />
