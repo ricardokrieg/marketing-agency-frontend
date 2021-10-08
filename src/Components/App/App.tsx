@@ -10,14 +10,13 @@ import {useApi} from '../../Hooks/use-api'
 
 function App() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
-  const opts = {
-    audience: 'marketing-agency',
-    scope: 'read:users email',
-  };
   useApi(
-    'https://api.example.com/users',
-    opts
-  );
+    `${process.env.REACT_APP_API_URL}/mass-dm`,
+    {
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      scope: 'openid profile email',
+    }
+  )
 
   if (isLoading) {
     return <div>Loading ...</div>;

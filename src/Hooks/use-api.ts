@@ -25,12 +25,9 @@ export const useApi = (url: string, options: IOptions = {}) => {
   useEffect(() => {
     (async () => {
       try {
-        console.log('useEffect')
-
         const { audience, scope, ...fetchOptions } = options
         const accessToken = await getAccessTokenSilently({ audience, scope })
-        console.log('accessToken')
-        console.log(accessToken)
+
         const res = await fetch(url, {
           ...fetchOptions,
           headers: {
@@ -38,6 +35,7 @@ export const useApi = (url: string, options: IOptions = {}) => {
             Authorization: `Bearer ${accessToken}`,
           },
         })
+
         setState({
           ...state,
           data: await res.json(),
