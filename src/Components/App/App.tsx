@@ -6,16 +6,25 @@ import {Route} from "react-router-dom";
 import Sidebar from "../Sidebar/Sidebar";
 import Header from "../Header/Header";
 import './style.css';
+import {useApi} from '../../Hooks/use-api'
 
 function App() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
+  const opts = {
+    audience: 'marketing-agency',
+    scope: 'read:users email',
+  };
+  useApi(
+    'https://api.example.com/users',
+    opts
+  );
 
   if (isLoading) {
     return <div>Loading ...</div>;
   }
 
   if (!isAuthenticated) {
-    loginWithRedirect().then(() => {})
+    loginWithRedirect().then()
     return <div></div>;
   }
 

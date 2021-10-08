@@ -8,11 +8,11 @@ import { BrowserRouter } from "react-router-dom";
 ReactDOM.render(
   <React.StrictMode>
     <Auth0Provider
-      domain='dev-y6x2es3x.us.auth0.com'
-      clientId='kbPPsen1T9Z4g3XXGPIK7HBtMXid94Fp'
+      domain={process.env.REACT_APP_AUTH0_DOMAIN || ''}
+      clientId={process.env.REACT_APP_AUTH0_CLIENT_ID || ''}
       redirectUri={window.location.origin}
-      audience='https://dev-y6x2es3x.us.auth0.com/api/v2/'
-      scope='read:current_user update:current_user_metadata'
+      audience={process.env.REACT_APP_AUTH0_AUDIENCE}
+      scope='read:current_user'
     >
       <BrowserRouter>
         <App />
