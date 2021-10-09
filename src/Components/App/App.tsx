@@ -11,7 +11,7 @@ import {useApi} from '../../Hooks/use-api'
 function App() {
   const { user, isAuthenticated, isLoading, loginWithRedirect } = useAuth0();
   useApi(
-    `${process.env.REACT_APP_API_URL}/mass-dm`,
+    `${process.env.REACT_APP_API_URL}/mass-dm/campaigns`,
     {
       audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       scope: 'openid profile email',
