@@ -1,36 +1,52 @@
-import React, {useState} from 'react';
-import './style.css';
-import {Link, NavLink} from 'react-router-dom';
-import {ICampaign} from "./Interfaces";
+import React, {useEffect} from 'react'
+import {useDispatch, useSelector} from 'react-redux'
+import './style.css'
+import {Link, NavLink} from 'react-router-dom'
+
+import {
+  fetchCampaigns
+} from '../../mass-dm/campaigns/campaigns.actions'
+import {getCampaigns, getLoading} from '../../mass-dm/campaigns/campaigns.reducers'
+import {ICampaign} from '../../mass-dm/campaigns/campaigns.interfaces'
 
 interface CampaignProps {
-  campaign: ICampaign,
+  campaign: ICampaign
 }
 
-function Campaign(props: CampaignProps) {
+const Campaign = (props: CampaignProps) => {
   return (
     <div className='campaign'>
       <div className='header'>
         <div className='title'>
           {props.campaign.title}
         </div>
-        {props.campaign.status}
+        {props.campaign.title}
       </div>
 
       <div className='message'>
-        {props.campaign.message}
+        {props.campaign.title}
       </div>
 
       <div className='footer'>
-        <div>{props.campaign.created_at}</div>
+        <div>{props.campaign.title}</div>
         <Link to="/mass-dm/${props.campaign.uuid}">Detalhes</Link>
       </div>
     </div>
   )
 }
 
-function ListCampaigns() {
-  let [campaigns, setCampaigns] = useState([])
+const ListCampaigns = () => {
+  const dispatch = useDispatch()
+  const loading = useSelector(getLoading)
+  const campaigns = useSelector(getCampaigns)
+
+  useEffect(() => {
+    dispatch(fetchCampaigns())
+  }, [])
+
+  if (loading) {
+    return <div>Loading...</div>
+  }
 
   return (
     <div className='campaigns'>
@@ -63,11 +79,11 @@ function ListCampaigns() {
         </ul>
 
         <div className='View'>
-          {campaigns.map((campaign: ICampaign) => <Campaign campaign={campaign} />)}
+          {campaigns && campaigns.map((campaign: ICampaign) => <Campaign campaign={campaign} />)}
         </div>
       </div>
     </div>
   )
 }
 
-export default ListCampaigns;
+export default ListCampaigns

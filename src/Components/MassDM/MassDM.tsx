@@ -5,7 +5,7 @@ import ListCampaigns from "./ListCampaigns";
 import NewCampaign from "./NewCampaign";
 
 function MassDM() {
-  let {path, url} = useRouteMatch();
+  const {path} = useRouteMatch();
 
   return (
     <div>
