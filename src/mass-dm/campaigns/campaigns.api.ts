@@ -1,5 +1,23 @@
 import api from '../../api'
 import {ICampaign, ICampaignCreated, ICreateCampaign, IUpdateCampaign} from './campaigns.interfaces'
+import {CampaignNotFoundError} from './campaigns.errors'
+
+export const get = async (id: string): Promise<ICampaign> => {
+  try {
+    const response = await api.get(`campaigns/${id}`)
+
+    // @ts-ignore
+    if (response.status === 404) {
+      throw new CampaignNotFoundError()
+    }
+
+    // @ts-ignore
+    return response.data.data
+  } catch(err) {
+    console.error(err)
+    throw err
+  }
+}
 
 export const list = async (): Promise<Array<ICampaign>> => {
   try {

@@ -1,16 +1,20 @@
-import React from 'react';
-import './style.css';
-import {Route, useRouteMatch} from 'react-router-dom';
-import ListCampaigns from "./ListCampaigns";
-import NewCampaign from "./NewCampaign";
+import React from 'react'
+import './style.css'
+import {Switch, Route, useRouteMatch} from 'react-router-dom'
+import ListCampaigns from './ListCampaigns'
+import NewCampaign from './NewCampaign'
+import CampaignDetails from './CampaignDetails'
 
 function MassDM() {
-  const {path} = useRouteMatch();
+  const {path} = useRouteMatch()
 
   return (
     <div>
-      <Route exact path={path} component={ListCampaigns} />
-      <Route path={`${path}/new`} component={NewCampaign} />
+      <Switch>
+        <Route exact path={path} component={ListCampaigns} />
+        <Route path={`${path}/new`} component={NewCampaign} />
+        <Route path={`${path}/:id`} component={CampaignDetails} />
+      </Switch>
     </div>
   )
 }

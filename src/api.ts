@@ -9,7 +9,10 @@ type GetAccessTokenSilentlyFunction = (options: GetAccessTokenOptions) => Promis
 
 const axios = defaultAxios.create({
   baseURL: process.env.REACT_APP_API_MASS_DM_URL,
-  headers: {'Content-Type': 'application/json'}
+  headers: {'Content-Type': 'application/json'},
+  validateStatus: function (status) {
+    return status >= 200 && status < 500
+  },
 })
 
 export const registerAccessTokenInterceptor = async (getAccessTokenSilently: GetAccessTokenSilentlyFunction) => {

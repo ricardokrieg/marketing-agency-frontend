@@ -37,7 +37,7 @@ const Campaign = (props: CampaignProps) => {
 
       <div className='footer'>
         <div>{props.campaign.title}</div>
-        <Link to="/mass-dm/${props.campaign.uuid}">Detalhes</Link>
+        <Link to={`/mass-dm/${props.campaign.id}`}>Detalhes</Link>
       </div>
 
       <button onClick={archiveCampaign}>Arquivar</button>

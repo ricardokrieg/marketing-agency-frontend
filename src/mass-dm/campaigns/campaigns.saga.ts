@@ -10,6 +10,9 @@ import {
   createCampaignSuccess,
   DELETE_CAMPAIGN,
   deleteCampaignSuccess,
+  FETCH_CAMPAIGN,
+  fetchCampaignSuccess,
+  fetchCampaignError,
   FETCH_CAMPAIGNS,
   fetchCampaignsSuccess,
   setLoading,
@@ -18,12 +21,24 @@ import {
 } from './campaigns.actions'
 
 import {
+  get,
   list,
   create,
   update,
   destroy,
 } from './campaigns.api'
 import {ICampaign, ICampaignCreated, ICreateCampaign, IUpdateCampaign} from './campaigns.interfaces'
+
+function* getCampaign({ payload }: { payload: string }) {
+  yield put(setLoading())
+
+  try {
+    const campaign: ICampaign = yield call(get, payload)
+    yield put(fetchCampaignSuccess(campaign))
+  } catch (err) {
+    yield put(fetchCampaignError(err))
+  }
+}
 
 function* getCampaigns() {
   yield put(setLoading())
@@ -59,6 +74,8 @@ function* deleteCampaign({ payload }: { payload: string }) {
 }
 
 export default function* todoSaga() {
+  // @ts-ignore
+  yield takeEvery(FETCH_CAMPAIGN, getCampaign)
   yield takeEvery(FETCH_CAMPAIGNS, getCampaigns)
   // @ts-ignore
   yield takeLatest(CREATE_CAMPAIGN, createCampaign)

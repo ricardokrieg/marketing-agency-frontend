@@ -1,6 +1,9 @@
 import {ICampaign, ICreateCampaign} from './campaigns.interfaces'
 
 export const SET_LOADING = 'SET_LOADING'
+export const FETCH_CAMPAIGN = 'FETCH_CAMPAIGN'
+export const FETCH_CAMPAIGN_SUCCESS = 'FETCH_CAMPAIGN_SUCCESS'
+export const FETCH_CAMPAIGN_ERROR = 'FETCH_CAMPAIGN_ERROR'
 export const FETCH_CAMPAIGNS = 'FETCH_CAMPAIGNS'
 export const FETCH_CAMPAIGNS_SUCCESS = 'FETCH_CAMPAIGNS_SUCCESS'
 export const CREATE_CAMPAIGN = 'CREATE_CAMPAIGN'
@@ -12,6 +15,18 @@ export const DELETE_CAMPAIGN_SUCCESS = 'DELETE_CAMPAIGN_SUCCESS'
 
 export const setLoading = () => {
   return {type: SET_LOADING}
+}
+
+export const fetchCampaign = (payload: string) => {
+  return {type: FETCH_CAMPAIGN, payload}
+}
+
+export const fetchCampaignSuccess = (payload: ICampaign) => {
+  return {type: FETCH_CAMPAIGN_SUCCESS, payload}
+}
+
+export const fetchCampaignError = (payload: any) => {
+  return {type: FETCH_CAMPAIGN_ERROR, payload}
 }
 
 export const fetchCampaigns = () => {
