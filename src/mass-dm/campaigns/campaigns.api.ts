@@ -1,5 +1,5 @@
 import api from '../../api'
-import {ICampaign, ICampaignCreated, ICreateCampaign} from './campaigns.interfaces'
+import {ICampaign, ICampaignCreated, ICreateCampaign, IUpdateCampaign} from './campaigns.interfaces'
 
 export const list = async (): Promise<Array<ICampaign>> => {
   try {
@@ -19,6 +19,15 @@ export const create = async (params: ICreateCampaign): Promise<ICampaignCreated>
 
     // @ts-ignore
     return campaign.data.data
+  } catch(err) {
+    console.error(err)
+    throw err
+  }
+}
+
+export const update = async (id: string, params: IUpdateCampaign): Promise<void> => {
+  try {
+    await api.patch(`campaigns/${id}`, params)
   } catch(err) {
     console.error(err)
     throw err

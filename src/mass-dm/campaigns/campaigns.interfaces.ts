@@ -7,6 +7,10 @@ export interface ICreateCampaign {
   title: string
 }
 
+export interface IUpdateCampaign {
+  title: string
+}
+
 export interface ICampaignCreated {
   id: string
 }

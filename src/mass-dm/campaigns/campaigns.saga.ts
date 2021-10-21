@@ -13,14 +13,17 @@ import {
   FETCH_CAMPAIGNS,
   fetchCampaignsSuccess,
   setLoading,
+  UPDATE_CAMPAIGN,
+  updateCampaignSuccess,
 } from './campaigns.actions'
 
 import {
   list,
   create,
+  update,
   destroy,
 } from './campaigns.api'
-import {ICampaign, ICampaignCreated, ICreateCampaign} from './campaigns.interfaces'
+import {ICampaign, ICampaignCreated, ICreateCampaign, IUpdateCampaign} from './campaigns.interfaces'
 
 function* getCampaigns() {
   yield put(setLoading())
@@ -30,7 +33,7 @@ function* getCampaigns() {
   yield put(fetchCampaignsSuccess(campaigns))
 }
 
-function* createCampaign(payload: ICreateCampaign) {
+function* createCampaign({ payload }: { payload: ICreateCampaign }) {
   yield put(setLoading())
 
   const campaign: ICampaignCreated = yield call(create, payload)
@@ -38,7 +41,16 @@ function* createCampaign(payload: ICreateCampaign) {
   yield put(createCampaignSuccess({ ...payload, id: campaign.id }))
 }
 
-function* deleteCampaign(payload: string) {
+function* updateCampaign(payload: { id: string, params: IUpdateCampaign }) {
+  yield put(setLoading())
+
+  yield call(update, payload.id, payload.params)
+
+  // @ts-ignore
+  yield put(updateCampaignSuccess(payload))
+}
+
+function* deleteCampaign({ payload }: { payload: string }) {
   yield put(setLoading())
 
   yield call(destroy, payload)
@@ -50,6 +62,8 @@ export default function* todoSaga() {
   yield takeEvery(FETCH_CAMPAIGNS, getCampaigns)
   // @ts-ignore
   yield takeLatest(CREATE_CAMPAIGN, createCampaign)
+  // @ts-ignore
+  yield takeLatest(UPDATE_CAMPAIGN, updateCampaign)
   // @ts-ignore
   yield takeLatest(DELETE_CAMPAIGN, deleteCampaign)
 }

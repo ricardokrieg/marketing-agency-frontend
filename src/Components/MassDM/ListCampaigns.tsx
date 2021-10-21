@@ -1,19 +1,27 @@
-import React, {useEffect} from 'react'
+import React, {MouseEventHandler, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import './style.css'
 import {Link, NavLink} from 'react-router-dom'
 
 import {
-  fetchCampaigns
+  fetchCampaigns,
+  deleteCampaign,
 } from '../../mass-dm/campaigns/campaigns.actions'
 import {getCampaigns, getLoading} from '../../mass-dm/campaigns/campaigns.reducers'
 import {ICampaign} from '../../mass-dm/campaigns/campaigns.interfaces'
 
 interface CampaignProps {
   campaign: ICampaign
+  onDestroy: () => void
 }
 
 const Campaign = (props: CampaignProps) => {
+  const archiveCampaign = (e: any) => {
+    e.preventDefault()
+
+    props.onDestroy()
+  }
+
   return (
     <div className='campaign'>
       <div className='header'>
@@ -31,6 +39,8 @@ const Campaign = (props: CampaignProps) => {
         <div>{props.campaign.title}</div>
         <Link to="/mass-dm/${props.campaign.uuid}">Detalhes</Link>
       </div>
+
+      <button onClick={archiveCampaign}>Arquivar</button>
     </div>
   )
 }
@@ -79,7 +89,14 @@ const ListCampaigns = () => {
         </ul>
 
         <div className='View'>
-          {campaigns && campaigns.map((campaign: ICampaign) => <Campaign campaign={campaign} />)}
+          {campaigns && campaigns.map((campaign: ICampaign) => {
+            return (
+              <Campaign
+                campaign={campaign}
+                onDestroy={() => dispatch(deleteCampaign(campaign.id))}
+              />
+            )
+          })}
         </div>
       </div>
     </div>
