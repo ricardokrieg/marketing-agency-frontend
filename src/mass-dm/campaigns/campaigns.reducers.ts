@@ -1,9 +1,13 @@
+import {findIndex} from 'lodash'
+
 import {
   SET_LOADING,
   FETCH_CAMPAIGN_SUCCESS,
   FETCH_CAMPAIGNS_SUCCESS,
   CREATE_CAMPAIGN_SUCCESS,
-  DELETE_CAMPAIGN_SUCCESS, FETCH_CAMPAIGN_ERROR,
+  DELETE_CAMPAIGN_SUCCESS,
+  FETCH_CAMPAIGN_ERROR,
+  UPDATE_CAMPAIGN_SUCCESS,
 } from './campaigns.actions'
 import {ICampaign} from './campaigns.interfaces'
 
@@ -57,6 +61,21 @@ const reducer = (state: CampaignsState = initialState, {type, payload}: {type: s
       return {
         ...state,
         campaigns: [...state.campaigns, payload],
+        loading: false,
+      }
+    case UPDATE_CAMPAIGN_SUCCESS:
+      const index = findIndex(state.campaigns, { id: payload.id })
+      const campaign = state.campaign && state.campaign.id === payload.id ? { ...state.campaign, ...payload.params } : state.campaign
+      const campaigns = index >= 0 ? [
+        ...state.campaigns.slice(0, index-1),
+        {...state.campaigns[index], ...payload.params},
+        ...state.campaigns.slice(index),
+      ] : state.campaigns
+
+      return {
+        ...state,
+        campaigns,
+        campaign,
         loading: false,
       }
     case DELETE_CAMPAIGN_SUCCESS:

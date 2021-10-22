@@ -1,9 +1,10 @@
-import React, {MouseEventHandler, useEffect} from 'react'
+import React, {FormEvent, MouseEventHandler, useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import './style.css'
 import {useParams, Redirect} from 'react-router-dom'
 
 import {
+  updateCampaign,
   fetchCampaign,
 } from '../../mass-dm/campaigns/campaigns.actions'
 import {getCampaign, getLoading, getError} from '../../mass-dm/campaigns/campaigns.reducers'
@@ -16,6 +17,13 @@ const CampaignDetails = () => {
   const loading: boolean = useSelector(getLoading)
   const campaign: ICampaign | null = useSelector(getCampaign)
   const { id }: { id: string } = useParams()
+  const [title, setTitle] = useState('')
+
+  const onSubmit = (e: FormEvent) => {
+    e.preventDefault()
+
+    dispatch(updateCampaign({ id, params: { title } }))
+  }
 
   useEffect(() => {
     dispatch(fetchCampaign(id))
@@ -37,6 +45,11 @@ const CampaignDetails = () => {
     <div className='campaigns'>
       <div className='header'>
         <h1>{campaign.title}</h1>
+
+        <form onSubmit={onSubmit}>
+          <input type="text" placeholder='título' onChange={(e: any) => setTitle(e.target.value)} />
+          <input type="submit"/>
+        </form>
       </div>
     </div>
   )

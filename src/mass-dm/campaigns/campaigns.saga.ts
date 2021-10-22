@@ -56,12 +56,11 @@ function* createCampaign({ payload }: { payload: ICreateCampaign }) {
   yield put(createCampaignSuccess({ ...payload, id: campaign.id }))
 }
 
-function* updateCampaign(payload: { id: string, params: IUpdateCampaign }) {
+function* updateCampaign({ payload }: { payload: { id: string, params: IUpdateCampaign } }) {
   yield put(setLoading())
 
   yield call(update, payload.id, payload.params)
 
-  // @ts-ignore
   yield put(updateCampaignSuccess(payload))
 }
 

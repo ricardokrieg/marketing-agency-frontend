@@ -1,4 +1,4 @@
-import {ICampaign, ICreateCampaign} from './campaigns.interfaces'
+import {ICampaign, ICreateCampaign, IUpdateCampaign} from './campaigns.interfaces'
 
 export const SET_LOADING = 'SET_LOADING'
 export const FETCH_CAMPAIGN = 'FETCH_CAMPAIGN'
@@ -45,11 +45,11 @@ export const createCampaignSuccess = (payload: ICampaign) => {
   return {type: CREATE_CAMPAIGN_SUCCESS, payload}
 }
 
-export const updateCampaign = () => {
-  return {type: UPDATE_CAMPAIGN}
+export const updateCampaign = (payload: { id: string, params: IUpdateCampaign }) => {
+  return {type: UPDATE_CAMPAIGN, payload}
 }
 
-export const updateCampaignSuccess = (payload: ICampaign) => {
+export const updateCampaignSuccess = (payload: { id: string, params: IUpdateCampaign }) => {
   return {type: UPDATE_CAMPAIGN_SUCCESS, payload}
 }
 
